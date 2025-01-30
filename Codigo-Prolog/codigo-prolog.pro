@@ -3,11 +3,13 @@
  *********************************************/
 :- dynamic(bateria/1).
 :- dynamic(temperatura_motor/1).
-* continue aqui...
+:- dynamic(nivel_oleo/1).
+:- dynamic(sensor_oxigenio/1).
 :- dynamic(luz_check_engine/0).
 :- dynamic(luz_bateria/0).
-* continue aqui...
-
+:- dynamic(falha_ignicao/0).
+:- dynamic(barulho_incomum/0).
+:- dynamic(rotacao_alta/0).
 
 /*********************************************
  * 2. FATOS BÁSICOS (SINTOMAS E CAUSAS)
@@ -57,32 +59,42 @@ diagnostico(alternador_defeituoso) :-
 %    - Se temperatura do motor > 100°C e/ou check engine aceso,
 %      indicamos problema de arrefecimento.
 diagnostico(sistema_arrefecimento) :-
-* continue aqui...
+    temperatura_motor(Temp),
+    Temp > 100,
+    luz_check_engine.
 
 % 3.4 Diagnóstico de baixo nível de óleo
 %    - Se nível do óleo está abaixo do mínimo,
 %      sugerimos problema relacionado ao óleo.
 diagnostico(baixo_nivel_oleo) :-
-* continue aqui...
+    nivel_oleo(Nivel),
+    Nivel < 2.0.  % Assumindo que 2.0 e o nivel minimo aceitavel.
 
 % 3.5 Diagnóstico de vela de ignição defeituosa
 %    - Se há falha de ignição frequente, mas a bateria está boa,
 %      suspeitamos da vela de ignição.
 diagnostico(vela_ignicao_defeituosa) :-
-* continue aqui...
+    falha_ignicao,
+    \+ diagnostico(bateria_fraca).
 
 % 3.6 Diagnóstico de sensor de oxigênio defeituoso
 %    - Se o sensor de oxigênio marca valor fora da faixa normal
 %      e a luz de check engine pisca somente em alta rotação,
 %      pode ser o sensor de oxigênio.
 diagnostico(sensor_oxigenio_defeituoso) :-
-* continue aqui...
+    sensor_oxigenio(Valor),
+    Valor < 0.5,  % Valor fora da faixa normal
+    rotacao_alta,
+    luz_check_engine.
 
 % 3.7 Diagnóstico de problema na injeção
 %    - Se há falha em alta rotação e a leitura do sensor de
 %      oxigênio está na faixa normal, pode ser a injeção.
 diagnostico(problema_injecao) :-
-* continue aqui...
+    rotacao_alta,
+    sensor_oxigenio(Valor),
+    Valor >= 0.5,  % Valor na faixa normal
+    luz_check_engine.
 
 % 3.8 Diagnóstico de ruídos no motor (problema interno ou transmissão)
 %    - Se há barulho incomum e perda de potência, mas a check engine
