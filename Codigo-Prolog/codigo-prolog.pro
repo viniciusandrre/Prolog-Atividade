@@ -178,6 +178,40 @@ justificativa(alternador_defeituoso, Justificativa) :-
     atom_concat('A luz de bateria esta acesa, mas a bateria nao foi diagnosticada como fraca. ',
                 'Isso sugere que o alternador pode estar defeituoso.', Justificativa).
 
+justificativa(sistema_arrefecimento, Justificativa) :-
+    atom_concat('A temperatura do motor esta acima de 100C, \ne a luz de check engine esta ',
+                'acesa.\nIsso indica um problema no sistema de arrefecimento.\n', Justificativa).
+
+justificativa(baixo_nivel_oleo, Justificativa) :-
+    atom_concat('O nivel de oleo esta abaixo do minimo recomendado, \no que pode causar danos ',
+                'ao motor.', Justificativa).
+
+justificativa(vela_ignicao_defeituosa, Justificativa) :-
+    atom_concat('Ha falha de ignicao frequente, mas a bateria esta em boas condicoes. Isso ',
+                'sugere que as velas de ignicao podem estar defeituosas.', Justificativa).
+
+justificativa(sensor_oxigenio_defeituoso, Justificativa) :-
+    atom_concat('\nO sensor de oxigenio esta marcando um valor fora da faixa normal,\ne a luz de ',
+                'check engine pisca em alta rotacao. \nIsso indica um problema no sensor de ',
+                Parte1),
+    atom_concat(Parte1,
+                'oxigenio.', Justificativa).
+
+justificativa(problema_injecao, Justificativa) :-
+    atom_concat('Ha falha em alta rotacao, mas o sensor de oxigenio esta na faixa normal. ',
+                'Isso sugere um problema no sistema de injecao.', Justificativa).
+
+justificativa(problema_interno_motor, Justificativa) :-
+    atom_concat('\nHa barulhos incomuns no motor, mas a temperatura esta normal\ne a luz de ',
+                'check engine nao esta acesa.\nIsso sugere um problema interno no motor, ',
+                Parte1),
+    atom_concat(Parte1,
+                'como bielas ou pistoes.\n', Justificativa).
+
+justificativa(problema_transmissao, Justificativa) :-
+    atom_concat('\nHa barulhos incomuns no motor, mas a temperatura esta normal\ne a luz de ',
+                'check engine nao esta acesa.\nIsso sugere um problema na transmissao.', Justificativa).
+
 
 
 /*********************************************
