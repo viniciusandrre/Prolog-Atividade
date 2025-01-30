@@ -107,7 +107,10 @@ diagnostico(problema_interno_motor) :-
     !.
 
 diagnostico(problema_transmissao) :-
-* continue aqui...
+    barulho_incomum,
+    \+ luz_check_engine,
+    temperatura_motor(T),
+    T < 100.
 
 /*********************************************
  * 4. RECOMENDAÇÕES DE AÇÃO
@@ -117,7 +120,12 @@ diagnostico(problema_transmissao) :-
 recomendacao(bateria_fraca, 'Recarregar ou substituir a bateria').
 recomendacao(alternador_defeituoso, 'Verificar correia do alternador ou trocar alternador').
 recomendacao(sistema_arrefecimento, 'Checar radiador, bomba d\'água, ventoinha e fluido de arrefecimento').
-* continue aqui...
+recomendacao(baixo_nivel_oleo, 'Verificar nivel de oleo e possiveis vazamentos').
+recomendacao(vela_ignicao_defeituosa, 'Substituir velas de ignicao').
+recomendacao(sensor_oxigenio_defeituoso, 'Substituir sensor de oxigenio').
+recomendacao(problema_injecao, 'Verificar sistema de injecao eletronica').
+recomendacao(problema_interno_motor, 'Verificar bielas, pistoes e componentes internos do motor').
+recomendacao(problema_transmissao, 'Verificar caixa de cambio e sistema de transmissao').
 
 /*********************************************
  * 5. PREDICADO PRINCIPAL DE DIAGNÓSTICO
