@@ -136,20 +136,52 @@ diagnosticar :-
     % Encontra todas as causas que satisfazem as regras
     findall(Causa, diagnostico(Causa), ListaCausas),
     (   ListaCausas \= []
-    ->  format('Possiveis problemas diagnosticados: ~w~n',[ListaCausas]),
-        listar_recomendacoes(ListaCausas)
+    ->  format('Possiveis problemas diagnosticados:\n\n~w~n',[ListaCausas]), nl,
+        listar_recomendacoes(ListaCausas), nl,
+        listar_justificativas(ListaCausas)
     ;   write('Nenhum problema foi diagnosticado com as informacoes atuais.'), nl
     ).
 
+% Lista as recomendacoes para cada causa
 listar_recomendacoes([]).
 listar_recomendacoes([Causa|Resto]) :-
     recomendacao(Causa, Rec),
-    format(' -> Para ~w, recomenda-se: ~w~n', [Causa, Rec]),
+    format(' -> Para ~w, recomenda-se:\n\n ~w~n\n', [Causa, Rec]),
     listar_recomendacoes(Resto).
+
+% Lista as justificativas para cada causa
+listar_justificativas([]).
+listar_justificativas([Causa|Resto]) :-
+    justificativa(Causa, Just),
+    format('-> Justificativa: ~n~w~n', [Just]),
+    listar_justificativas(Resto). 
+
+/*********************************************
+ * 6. JUSTIFICATIVAS PARA CADA CAUSA
+ *    - Associa cada causa a uma justificativa
+ *      detalhada, com quebras de linha.
+ *********************************************/
+justificativa(bateria_fraca, Justificativa) :-
+    atom_concat('\n O sistema comparou 11,8V com o limite minimo de 12V\n e concluiu que a bateria ',
+                'nao esta fornecendo voltagem adequada.\n Em paralelo, detectou-se que a luz de ',
+                Parte1),
+    atom_concat(Parte1,
+                'bateria piscava, \n indicando suspeita no alternador. \n Portanto, prioriza-se ',
+                Parte2),
+    atom_concat(Parte2,
+                'bateria fraca, mas, se recarregada \n e o problema continuar, passa a se  ',
+                Parte3),
+    atom_concat(Parte3,
+                'investigar alternador.', Justificativa).
+
+justificativa(alternador_defeituoso, Justificativa) :-
+    atom_concat('A luz de bateria esta acesa, mas a bateria nao foi diagnosticada como fraca. ',
+                'Isso sugere que o alternador pode estar defeituoso.', Justificativa).
+
 
 
 /*********************************************
- * 6. EXEMPLOS DE CASOS DE TESTE
+ * 7. EXEMPLOS DE CASOS DE TESTE
  *    - Cada cenário insere (assert) valores
  *      de sintomas e sensores, chama
  *      diagnosticar/0 e depois limpa o estado.
