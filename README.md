@@ -3,21 +3,30 @@
 Reconhecimentos e Direitos Autorais
 
 @Autor:
-Emanuelle Da Silva Laune
-Lucyene Pinheiro Neves
-Vinicius Andre Almeida Pereira
+
+-Emanuelle Da Silva Laune
+
+-Lucyene Pinheiro Neves
+
+-Vinicius Andre Almeida Pereira
+
 @Contato:
-emanuelle.laune@discente.ufma.br
-lucyene.pinheiro@discente.ufma.br
-vini.andre01@outlook.com
+
+-emanuelle.laune@discente.ufma.br
+
+-lucyene.pinheiro@discente.ufma.br
+
+-vini.andre01@outlook.com
 
 @data última versão: 30/01/2025
 
 @versão: 1.0
 
 @outros repositórios:
-https://github.com/LucyenePinheiro
-https://github.com/viniciusandrre
+
+-https://github.com/LucyenePinheiro
+
+-https://github.com/viniciusandrre
 
 ## Descrição do Projeto
 Este projeto utiliza a linguagem de programação lógica Prolog para diagnosticar problemas mecânicos e elétricos em um veículo. Baseado em sintomas e leituras de sensores, o sistema infere possíveis causas e sugere recomendações de manutenção.
